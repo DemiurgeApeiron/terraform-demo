@@ -29,6 +29,22 @@ resource "aws_vpc_security_group_egress_rule" "Allow_outbound_https_traffic_back
 resource "aws_security_group" "ec2_frontend" {
   provider    = aws.aws-west
   vpc_id      = module.vpc.vpc_cidr_block
-  description = "Allow traffic for the ec2 balckend compute instances"
+  description = "Allow traffic for the ec2 frontend compute instances"
+
+  ingress = {
+    description = "Allow Https form anywhere"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "https"
+    cidr_ipv4   = "0.0.0.0/32"
+  }
+
+  egress = {
+    description = "Allow Https form anywhere"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "https"
+    cidr_ipv4   = "0.0.0.0/32"
+  }
 
 }
